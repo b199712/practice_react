@@ -1,0 +1,57 @@
+<html>
+	<head>
+
+
+	</head>
+	<body>
+		<div id="first"></div>
+		<script src="./react-15.1.0/build/react.js"></script>
+		<script src="./react-15.1.0/build/react-dom.js"></script>
+		<script src="./react-15.1.0/build/browser.min.js"></script>
+		<script>
+			var names = ["one", "two", "three"];
+			
+			/*
+			//jsx
+			ReactDOM.render(
+				<div>
+				{
+					names.map(function(name){
+						return <div>Hello, {name}!</div>
+					})
+				}
+				</div>,
+				ocument.getElementById("first")
+			);*/
+			
+			//without jsx
+			var content = React.createClass({
+				propTypes:{
+					name: React.PropTypes.string.isRequired
+				},
+				render:function(){
+				console.log(this.props.name);
+					return (
+						React.createElement('div', {}, "Hello, "+this.props.name)
+					)
+				},
+			})
+			var contactItem = names.map(
+				function(contact){
+					return React.createElement(content, {name:contact});
+				}
+			)
+
+			var rootElement = React.createElement('div', {}, contactItem)
+
+			ReactDOM.render(
+				//<div>Hello, world!</div>,
+				//React.createElement('div', {}, 'Hello world!'),
+				rootElement,
+				document.getElementById("first")
+			);
+
+
+		</script>
+	</body>
+</html>
