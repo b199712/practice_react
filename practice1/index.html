@@ -11,19 +11,6 @@
 		<script>
 			var names = ["one", "two", "three"];
 			
-			/*
-			//jsx
-			ReactDOM.render(
-				<div>
-				{
-					names.map(function(name){
-						return <div>Hello, {name}!</div>
-					})
-				}
-				</div>,
-				ocument.getElementById("first")
-			);*/
-			
 			//without jsx
 			var content = React.createClass({
 				propTypes:{
@@ -50,7 +37,22 @@
 				rootElement,
 				document.getElementById("first")
 			);
-
+			
+			/*
+			ReactDOM.render(React.createElement(
+				"div",
+				null,
+				names.map(function (name) {
+					return React.createElement(
+						"div",
+						null,
+						"Hello, ",
+						name,
+						"!"
+					);
+				})
+			), document.getElementById("first"));
+			*/
 
 		</script>
 	</body>
