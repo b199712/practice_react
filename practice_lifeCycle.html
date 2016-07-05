@@ -1,0 +1,43 @@
+<html>
+	<head>
+
+
+	</head>
+	<body>
+		<div id="first"></div>
+		<script src="./react-15.1.0/build/react.js"></script>
+		<script src="./react-15.1.0/build/react-dom.js"></script>
+		<script src="./react-15.1.0/build/browser.min.js"></script>
+		<script>
+			var MyComponent = React.createClass({
+				render: function () {
+					return React.DOM.div(null, this.props.data);
+				},
+				componentWillMount: function(){
+					console.log("1");
+				},
+				componentWillUpdate: function(){
+					console.log("2");
+				},
+				componentWillUnmount: function(){
+					console.log("3");
+				},
+			});
+			
+			var ExampleApplicationFactory = React.createFactory(MyComponent);
+			
+			ReactDOM.render(
+				 ExampleApplicationFactory({ data: "a" }),
+				 document.getElementById('first')
+			);
+			
+			ReactDOM.render(
+				 ExampleApplicationFactory({ data: "b" }),
+				 document.getElementById('first')
+			);
+
+
+			ReactDOM.unmountComponentAtNode(document.getElementById("first"));
+		</script>
+	</body>
+</html>
