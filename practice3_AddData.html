@@ -1,0 +1,115 @@
+<html>
+	<head>
+
+
+	</head>
+	<body>
+		<div id="react-app"></div>
+		<script src="https://cdn.jsdelivr.net/react/0.14.0-rc1/react.js"></script>
+		<script src="https://cdn.jsdelivr.net/react/0.14.0-rc1/react-dom.js"></script>
+		<script>
+			
+			"use strict";
+			var contacts = [
+			  {key: 1, name: "James K Nelson", email: "james@jamesknelson.com", description: "Front-end Unicorn"},
+			  {key: 2, name: "Jim", email: "jim@example.com"},
+			  {key: 3, name: "Joe"},
+			]
+
+			var newContact = {name: "", email: "", description: ""}
+								
+			var processElements = React.createClass({
+				getInitialState: function(){
+					return{
+						datas: contacts
+					};
+				},
+				addDatas: function(data){
+					var datas = this.state.datas;
+					datas.push(data);
+					this.setState({ datas: datas });
+				},
+				render: function(){
+					return (
+						React.createElement(
+							"div",
+							{},
+							React.createElement('h1', {}, "Contacts"),
+							React.createElement(FilterData, {datas: this.state.datas}),
+							React.createElement(ContactForm, {addDatas: this.addDatas})
+						)
+					);
+				}
+			});
+			
+			var FilterData = React.createClass({
+				displayName: "FilterData",
+				render: function(){
+					return (
+						React.createElement(
+							"ul",
+							{},
+							this.props.datas.filter(function(content){return content.email})
+							.map(function(content){
+								return React.createElement(ContactItem, {content: content});
+							})
+						)
+					);
+				}
+			});
+				
+			var ContactItem = React.createClass({
+
+				render: function() {
+					return (
+						React.createElement('li', {},
+							React.createElement('h2', {}, this.props.content.name),
+							React.createElement('a', {href: 'mailto:'+this.props.content.email}, this.props.content.email),
+							React.createElement('div', {}, this.props.content.description)
+						)
+					)
+				},
+			})
+
+			var ContactForm = React.createClass({
+			
+				handleNameChange: function(e){
+					this.setState({name:e.target.value});
+				},
+				handleEmailChange: function(e){
+					this.setState({email:e.target.value});
+				},
+				handleDescriptionChange: function(e){
+					this.setState({description:e.target.value});
+				},
+				addData: function(){
+					this.props.addDatas({name: this.state.name, email: this.state.email, description: this.state.description});
+				},
+				render: function() {
+					return (
+						React.createElement('div', {},
+							React.createElement('input', {
+								type: 'text',
+								placeholder: 'Name (required)',
+								ref: "aaa",
+								onChange: this.handleNameChange,
+							}),
+							React.createElement('input', {
+								type: 'email',
+								placeholder: 'Email',
+								onChange: this.handleEmailChange,
+							}),
+							React.createElement('textarea', {
+								placeholder: 'Description',
+								onChange: this.handleDescriptionChange,
+							}),
+							React.createElement('button', {onClick: this.addData}, "Add Contact")
+						)
+					)
+				},
+			});
+
+			ReactDOM.render(React.createElement(processElements, {}), document.getElementById('react-app'));
+		</script>
+	</body>
+</html>
